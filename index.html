@@ -5,96 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="拾见校园：校园失物招领小程序交互原型">
   <title>拾见校园｜失物招领交互原型</title>
-  <style>
-    :root{font-family:Inter,"PingFang SC","Microsoft YaHei",sans-serif;color:#19312b;background:#eef5f0}
-    *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;background:radial-gradient(circle at 10% 4%,#d5f3e7,transparent 34%),radial-gradient(circle at 90% 90%,#dcebf6,transparent 30%),#f4f8f5}
-    button,input,select,textarea{font:inherit}
-    button{cursor:pointer}
-    .site{max-width:1180px;margin:auto;padding:30px 24px 48px}
-    .top{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:34px}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:20px;letter-spacing:.05em}
-    .mark{display:grid;place-items:center;width:40px;height:40px;border-radius:13px;background:#0dae80;color:white;box-shadow:0 8px 20px #0dae8050}
-    .tag{border:1px solid #a7d9c7;border-radius:99px;padding:8px 13px;color:#18745c;background:#e7f7ef;font-size:13px;font-weight:700}
-    .layout{display:grid;grid-template-columns:minmax(280px,1fr) 430px;align-items:center;gap:60px}
-    .intro .eyebrow{color:#0d9d72;font-size:13px;letter-spacing:.2em;font-weight:800}
-    h1{font-size:clamp(36px,5vw,60px);line-height:1.18;letter-spacing:-.04em;margin:18px 0;color:#153d31}
-    .intro>p{font-size:17px;line-height:1.85;color:#577167;max-width:520px}
-    .flows{margin-top:36px;display:grid;gap:12px;max-width:510px}
-    .flow{border:1px solid #d4e7dd;background:#fff;border-radius:18px;padding:16px 18px;box-shadow:0 7px 24px #1f6a4720;text-align:left;color:#23473c;transition:.2s}
-    .flow:hover,.flow:focus-visible{transform:translateY(-2px);border-color:#0dae80;outline:none}
-    .flow strong{display:block;font-size:15px;margin-bottom:5px}
-    .flow span{font-size:13px;color:#6b8279}
-    .footnote{color:#82968e;font-size:12px;margin-top:28px}
-    .device{width:390px;max-width:100%;height:844px;justify-self:center;border:11px solid #15211d;border-radius:48px;background:#fff;box-shadow:0 30px 70px #164b353b;position:relative;overflow:hidden}
-    .device:before{content:"";position:absolute;z-index:4;top:9px;left:50%;transform:translateX(-50%);width:112px;height:25px;border-radius:18px;background:#15211d}
-    .status{height:44px;display:flex;align-items:center;justify-content:space-between;padding:9px 25px 0;font-size:12px;font-weight:800;color:#1a3128}
-    .screen{height:calc(100% - 44px);overflow-y:auto;overscroll-behavior:contain;background:#f8fbf9;scrollbar-width:none}
-    .screen::-webkit-scrollbar{display:none}
-    .appbar{min-height:60px;background:#fff;display:flex;align-items:center;justify-content:center;position:sticky;top:0;z-index:3;border-bottom:1px solid #edf3ee;font-size:17px;font-weight:800}
-    .back{position:absolute;left:16px;top:11px;border:0;background:#edf7f2;color:#0b936e;border-radius:12px;width:38px;height:38px;font-size:24px;line-height:1}
-    .body{padding:22px 20px 92px}
-    h2{font-size:25px;line-height:1.35;margin:4px 0 10px;color:#173b2f}
-    h3{font-size:17px;margin:26px 0 13px;color:#173b2f}
-    .muted{color:#6c8379;font-size:13px;line-height:1.65}
-    .hero{padding:25px 22px;border-radius:24px;background:linear-gradient(145deg,#0b9d74,#20c992);color:#fff;box-shadow:0 14px 28px #0dae8030}
-    .hero h2{color:#fff;margin:6px 0}
-    .hero .muted{color:#dbfff0}
-    .kicker{font-size:12px;font-weight:800;letter-spacing:.12em;opacity:.85}
-    .searchlink,.searchrow{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #e3eee7;border-radius:15px;box-shadow:0 4px 14px #164b350b}
-    .searchlink{width:100%;text-align:left;color:#8ca198;margin-top:20px;padding:15px 16px}
-    .searchrow{padding:0 13px}
-    .searchrow input{width:100%;height:48px;border:0;background:none;outline:0;color:#19312b}
-    .seg{display:flex;background:#e9f0ec;padding:4px;border-radius:14px;gap:4px;margin-top:18px}
-    .seg button{flex:1;border:0;background:transparent;color:#698075;font-weight:700;border-radius:11px;padding:10px 5px;font-size:13px}
-    .seg button.active{background:#fff;color:#0c9d72;box-shadow:0 2px 8px #183e2715}
-    .list{display:grid;gap:12px}
-    .card{display:block;width:100%;text-align:left;border:1px solid #e4eee8;background:#fff;border-radius:18px;padding:17px;box-shadow:0 6px 18px #154e300e;color:inherit}
-    .card:hover,.card:focus-visible{outline:2px solid #19bd8c}
-    .cardtop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
-    .cardtitle{font-weight:800;font-size:16px}
-    .pill{display:inline-block;padding:5px 9px;background:#e5f8ef;color:#0a9e72;font-size:11px;font-weight:800;border-radius:99px;white-space:nowrap}
-    .pill.lost{background:#fff3dd;color:#a76b11}
-    .pill.closed{background:#eff1f0;color:#718078}
-    .meta{font-size:12px;color:#84978e;margin-top:10px;line-height:1.55}
-    .cta{border:0;border-radius:14px;background:#09ad7e;color:#fff;font-weight:800;padding:15px 17px;width:100%;box-shadow:0 9px 18px #10a97d29}
-    .cta:hover,.cta:focus-visible{background:#078f68;outline:0}
-    .secondary{border:1px solid #bbd9cb;border-radius:14px;background:#fff;color:#087c5b;font-weight:800;padding:14px 17px;width:100%}
-    .actions{display:grid;gap:11px;margin-top:25px}
-    .bottomnav{position:absolute;bottom:0;left:0;right:0;display:flex;background:#fff;border-top:1px solid #e7efe9;z-index:3;padding:10px 4px 15px}
-    .bottomnav button{flex:1;border:0;background:none;color:#8ca097;font-size:12px;font-weight:700}
-    .bottomnav button.active{color:#0aa97b}
-    .bottomnav b{display:block;font-size:20px;line-height:24px}
-    .field{display:block;font-size:12px;font-weight:800;color:#456358;margin-top:15px}
-    .field input,.field select,.field textarea{display:block;width:100%;border:1px solid #dbeae1;background:#fff;border-radius:13px;margin-top:7px;padding:12px 13px;color:#1c382d;outline:none}
-    .field textarea{resize:vertical;min-height:76px}
-    .field input:focus,.field select:focus,.field textarea:focus{border-color:#0dae80;box-shadow:0 0 0 3px #13bd8d20}
-    .help{margin:11px 0 0;font-size:11px;color:#8a9e94}
-    .photo{height:170px;border:1px dashed #b7d5c5;border-radius:18px;background:linear-gradient(135deg,#eef7f1,#dceee7);display:grid;place-items:center;color:#639180;font-size:13px;margin:18px 0}
-    .facts{background:#fff;border:1px solid #e3eee7;border-radius:18px;overflow:hidden}
-    .fact{padding:15px 16px;display:grid;grid-template-columns:66px 1fr;gap:10px;border-bottom:1px solid #edf4ef;font-size:13px;line-height:1.6}
-    .fact:last-child{border-bottom:0}.fact b{color:#6d8479}.fact span{color:#294a3e}
-    .note{border-left:4px solid #0dae80;background:#e9f8f0;border-radius:0 13px 13px 0;padding:13px 15px;color:#3a6c57;font-size:12px;line-height:1.7}
-    .center{text-align:center}.symbol{width:78px;height:78px;background:#e5f9ee;color:#0aa875;border-radius:50%;display:grid;place-items:center;margin:52px auto 22px;font-size:38px;font-weight:800}
-    .empty{border:1px dashed #c9ded2;border-radius:18px;padding:28px;text-align:center;color:#6e867a;line-height:1.7;font-size:13px;background:#fff}
-    .error{font-size:12px;color:#b44833;margin:8px 0}
-    @media(max-width:850px){.site{padding:16px 12px 25px}.layout{display:block}.intro{padding:4px 12px 24px}.intro h1{font-size:34px}.intro>p{font-size:14px}.flows{display:none}.device{height:min(844px,calc(100dvh - 192px));min-height:600px;width:min(390px,100%);margin:auto}.tag{font-size:11px}.top{margin-bottom:12px}.footnote{display:none}}
-  </style>
+  <link rel=stylesheet href=style.css>
 </head>
 <body>
   <div class="site">
-    <div class="top"><div class="brand"><span class="mark">拾</span><span>拾见校园</span></div><span class="tag">校园失物招领 · 交互原型</span></div>
+    <div class="top"><div class="brand"><span class="mark">拾</span><span>拾见校园</span></div><span class="tag">CAMPUS NOTICE / 交互原型</span></div>
     <main class="layout">
       <section class="intro">
-        <div class="eyebrow">CAMPUS LOST &amp; FOUND</div>
-        <h1>让失物<br>更快回家。</h1>
-        <p>把分散在群聊里的寻物与招领信息集中起来。点击右侧手机界面，可以体验浏览、搜索、发布和修改状态的基本流程。</p>
+        <div class="eyebrow">A PLACE FOR EVERY CLUE</div>
+        <h1>每件失物，<br><em>都有回家的线索。</em></h1>
+        <p>把散落在群聊里的寻物与招领信息，整理成一张张清楚的校园线索卡。点击手机原型，试试浏览、搜索、发布和状态更新。</p>
         <div class="flows">
-          <button class="flow" data-flow="browse"><strong>01　查看信息 → 查看详情</strong><span>从首页选择招领信息，查看地点、时间与领取方式</span></button>
-          <button class="flow" data-flow="search"><strong>02　搜索物品 → 查看结果</strong><span>输入“校园卡”，筛选信息并打开详情</span></button>
-          <button class="flow" data-flow="publish"><strong>03　发布信息 → 发布成功</strong><span>填写示例信息，再进入我的发布修改状态</span></button>
+          <button class="flow" data-flow="browse"><span class="flow-num">01</span><span><strong>沿着线索查看详情</strong><small>浏览招领信息，核对地点、时间与领取方式</small></span><span class="flow-arrow">→</span></button>
+          <button class="flow" data-flow="search"><span class="flow-num">02</span><span><strong>用关键词寻找物品</strong><small>搜索“校园卡”，从结果进入详情</small></span><span class="flow-arrow">→</span></button>
+          <button class="flow" data-flow="publish"><span class="flow-num">03</span><span><strong>贴出新的寻物或招领</strong><small>填写信息，查看发布反馈并更新状态</small></span><span class="flow-arrow">→</span></button>
         </div>
-        <div class="footnote">基于 Slicerflow 专用原型工具的九页设计制作 · 页面内容均为演示数据</div>
+        <div class="footnote">拾见校园 / 需求分析与交互原型 · 所有物品信息均为演示数据</div>
       </section>
       <div class="device" aria-label="拾见校园交互原型">
         <div class="status"><span>9:41</span><span>●●● ▰</span></div>
@@ -112,24 +38,25 @@
     const app=document.getElementById("app");
     let page="home", filter="全部", keyword="", selected=1, previousList="home", mine=[];
     function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-    function getPost(){return seed.concat(mine).find(p=>p.id===selected)||seed[0];}
+    function getPost(){return mine.concat(seed).find(p=>p.id===selected)||seed[0];}
     function nav(title,back){return '<div class="appbar">'+(back?'<button class="back" data-screen="'+back+'" aria-label="返回">‹</button>':"")+esc(title)+'</div>';}
-    function bottom(active){return '<div class="bottomnav"><button data-screen="home" class="'+(active==="home"?"active":"")+'"><b>⌂</b>首页</button><button data-screen="search" class="'+(active==="search"?"active":"")+'"><b>⌕</b>搜索</button><button data-screen="publish" class="'+(active==="publish"?"active":"")+'"><b>＋</b>发布</button><button data-screen="mine" class="'+(active==="mine"?"active":"")+'"><b>☷</b>我的</button></div>';}
-    function card(p){return '<button class="card" data-post="'+p.id+'"><div class="cardtop"><span class="cardtitle">'+esc(p.title)+'</span><span class="pill '+(p.status.indexOf("已")===0?"closed":p.kind==="寻物"?"lost":"")+'">'+esc(p.kind)+' · '+esc(p.status)+'</span></div><div class="meta">⌖ '+esc(p.short)+'　·　'+esc(p.date)+'</div></button>';}
-    function home(){let posts=seed.concat(mine).filter(p=>filter==="全部"||p.kind===filter);return nav("拾见校园")+ '<div class="body"><div class="hero"><span class="kicker">校园互助 · 让线索相遇</span><h2>让失物更快回家</h2><div class="muted">寻物、招领与查找，都从这里开始。</div></div><button class="searchlink" data-screen="search">⌕　搜索校园卡、钥匙、雨伞…</button><div class="seg">'+["全部","寻物","招领"].map(x=>'<button data-filter="'+x+'" class="'+(filter===x?"active":"")+'">'+x+'</button>').join("")+'</div><h3>最新信息</h3><div class="list">'+posts.map(card).join("")+'</div><div class="actions"><button class="cta" data-screen="publish">＋ 发布寻物或招领</button></div></div>'+bottom("home");}
-    function search(){return nav("搜索物品","home")+'<div class="body"><h2>找到相关信息</h2><p class="muted">输入物品名称，快速筛选校园信息。</p><form id="search-form"><div class="searchrow"><span>⌕</span><input id="keyword" name="keyword" placeholder="输入校园卡、钥匙等" value="'+esc(keyword)+'" autocomplete="off"></div><div class="actions"><button class="cta" type="submit">搜索</button></div></form><h3>常搜物品</h3><div class="seg">'+["校园卡","钥匙","雨伞"].map(x=>'<button data-keyword="'+x+'">'+x+'</button>').join("")+'</div><p class="muted" style="margin-top:26px">先查看物品名称，再核对时间、地点和特征。</p></div>'+bottom("search");}
-    function results(){let q=keyword.trim().toLowerCase();let posts=seed.concat(mine).filter(p=>!q||[p.title,p.category,p.place,p.description].join(" ").toLowerCase().includes(q));return nav("搜索结果","search")+'<div class="body"><button class="searchlink" style="margin-top:0" data-screen="search">⌕　'+esc(keyword||"重新输入关键词")+'</button><h3>找到 '+posts.length+' 条相关信息</h3><div class="list">'+(posts.length?posts.map(card).join(""):'<div class="empty">没有匹配结果。试试更短的关键词，或发布寻物信息。</div>')+'</div><div class="actions"><button class="secondary" data-screen="publish">发布寻物信息</button></div></div>'+bottom("search");}
-    function detail(){let p=getPost();return nav("信息详情",previousList)+'<div class="body"><span class="pill '+(p.kind==="寻物"?"lost":"")+'">'+esc(p.status)+'</span><h2 style="margin-top:14px">'+esc(p.title)+'</h2><div class="photo">▧　物品照片示意区</div><div class="facts"><div class="fact"><b>类别</b><span>'+esc(p.category)+'</span></div><div class="fact"><b>地点</b><span>'+esc(p.place)+'</span></div><div class="fact"><b>时间</b><span>'+esc(p.date)+'</span></div></div><h3>补充描述</h3><p class="muted">'+esc(p.description)+'</p><div class="actions"><button class="cta" data-screen="contact">查看联系或领取方式</button></div></div>';}
-    function contact(){let p=getPost();return nav("联系或领取方式","detail")+'<div class="body"><h2>核对物品后再领取</h2><p class="muted">请根据发布者留下的方式联系，并在交接时核对物品特征。</p><div class="facts" style="margin-top:28px"><div class="fact"><b>方式</b><span>'+esc(p.contact)+'</span></div><div class="fact"><b>物品</b><span>'+esc(p.title)+'</span></div></div><div class="note" style="margin-top:22px">校园卡等证件不要公开完整卡面信息，领取时再核实身份，避免冒领。</div><div class="actions"><button class="secondary" data-screen="detail">返回详情</button></div></div>';}
-    function publish(){return nav("发布信息","home")+'<div class="body"><h2>发布一条新信息</h2><p class="muted">填写清楚物品和地点，方便其他同学查找。</p><form id="publish-form"><label class="field">发布类型<select name="kind"><option>寻物</option><option>招领</option></select></label><label class="field">物品名称 *<input name="title" placeholder="例如：校园卡" required maxlength="40"></label><label class="field">物品类别<select name="category"><option>证件卡片</option><option>钥匙</option><option>电子产品</option><option>其他</option></select></label><label class="field">丢失或拾取时间 *<input name="date" type="datetime-local" required></label><label class="field">地点 *<input name="place" placeholder="例如：图书馆一楼" required maxlength="50"></label><label class="field">补充描述<textarea name="description" placeholder="颜色、特征等；不要填写完整证件号" maxlength="200"></textarea></label><label class="field">联系或领取方式 *<input name="contact" placeholder="例如：交至服务台" required maxlength="60"></label><p class="help">带 * 的项目必填。原型仅演示发布流程，不向服务器提交信息。</p><div id="form-error" class="error" role="alert"></div><div class="actions"><button class="cta" type="submit">确认发布</button></div></form></div>'+bottom("publish");}
-    function success(){return nav("发布成功")+'<div class="body center"><div class="symbol">✓</div><h2>发布成功</h2><p class="muted">信息已进入演示列表。找到或归还后，记得在“我的发布”中修改状态。</p><div class="actions" style="margin-top:64px"><button class="cta" data-screen="mine">查看我的发布</button><button class="secondary" data-screen="home">返回首页</button></div></div>';}
-    function myPage(){return nav("我的发布","home")+'<div class="body"><h2>我的信息</h2><p class="muted">物品已找回或归还时，可更新状态。</p><div class="list" style="margin-top:24px">'+(mine.length?mine.map(p=>card(p)+'<button class="secondary" style="margin-top:-6px" data-close="'+p.id+'">'+(p.status.indexOf("已")===0?"已完成":"标记为"+(p.kind==="招领"?"已归还":"已找回"))+'</button>').join(""):'<div class="empty">还没有发布记录。<br>先发布一条寻物或招领信息吧。</div>')+'</div><div class="actions"><button class="cta" data-screen="publish">发布新信息</button></div></div>'+bottom("mine");}
-    function closed(){return nav("状态已更新","mine")+'<div class="body center"><div class="symbol">✓</div><h2>状态已更新</h2><p class="muted">这条信息会显示新的状态，减少无效联系。</p><div class="actions" style="margin-top:58px"><button class="cta" data-screen="mine">返回我的发布</button><button class="secondary" data-screen="home">返回首页</button></div></div>';}
-    function render(){app.innerHTML=({home,search,results,detail,contact,publish,success,mine:myPage,closed}[page]||home)();app.scrollTop=0;document.title="拾见校园｜"+({home:"首页",search:"搜索",results:"搜索结果",detail:"信息详情",contact:"领取方式",publish:"发布信息",success:"发布成功",mine:"我的发布",closed:"状态已更新"}[page]||"交互原型");}
-    function go(next){page=next;location.hash=next;render();}
-    document.addEventListener("click",ev=>{let flow=ev.target.closest("[data-flow]");if(flow){if(flow.dataset.flow==="browse"){selected=1;previousList="home";go("home");}if(flow.dataset.flow==="search"){keyword="校园卡";go("search");}if(flow.dataset.flow==="publish"){go("publish");}return;}let f=ev.target.closest("[data-filter]");if(f){filter=f.dataset.filter;render();return;}let k=ev.target.closest("[data-keyword]");if(k){keyword=k.dataset.keyword;go("results");return;}let p=ev.target.closest("[data-post]");if(p){selected=Number(p.dataset.post);previousList=page;go("detail");return;}let c=ev.target.closest("[data-close]");if(c){let item=mine.find(x=>x.id===Number(c.dataset.close));if(item&&item.status.indexOf("已")!==0){item.status=item.kind==="招领"?"已归还":"已找回";go("closed");}return;}let link=ev.target.closest("[data-screen]");if(link){go(link.dataset.screen);}});
-    document.addEventListener("submit",ev=>{if(ev.target.id==="search-form"){ev.preventDefault();keyword=new FormData(ev.target).get("keyword").trim();go("results");}if(ev.target.id==="publish-form"){ev.preventDefault();let d=new FormData(ev.target);let title=String(d.get("title")||"").trim(),place=String(d.get("place")||"").trim(),contact=String(d.get("contact")||"").trim();if(!title||!place||!contact||!d.get("date")){document.getElementById("form-error").textContent="请补全带 * 的项目。";return;}let kind=String(d.get("kind"));let rawDate=String(d.get("date"));let item={id:Date.now(),kind,title,category:String(d.get("category")),place,date:rawDate.replace("T"," "),short:place,description:String(d.get("description")||"暂无补充描述").trim(),contact,status:kind==="招领"?"招领中":"寻找中"};mine.unshift(item);selected=item.id;go("success");}});
-    window.addEventListener("hashchange",()=>{let target=location.hash.slice(1);if(["home","search","results","detail","contact","publish","success","mine","closed"].includes(target)){page=target;render();}});
+    function bottom(active){return '<div class="bottomnav">'+[["home","⌂","首页"],["search","⌕","搜索"],["publish","＋","发布"],["mine","☷","我的"]].map(([key,icon,label])=>'<button data-screen="'+key+'" class="'+(active===key?"active":"")+'"'+(active===key?' aria-current="page"':'')+'><b aria-hidden="true">'+icon+'</b>'+label+'</button>').join("")+'</div>';}
+    function iconFor(p){return p.category==="证件卡片"?"卡":p.category==="电子产品"?"耳":p.category==="钥匙"?"钥":"物";}
+    function card(p){let lost=p.kind==="寻物",number=String(p.id).slice(-3).padStart(3,"0");return `<button class="card ${lost?"kind-lost":"kind-found"}" data-post="${p.id}"><span class="card-head"><span class="card-serial">NO. ${number}</span><span class="card-type">${esc(p.kind)} / ${esc(p.status)}</span></span><span class="card-main"><span class="card-icon" aria-hidden="true">${iconFor(p)}</span><span><span class="cardtitle">${esc(p.title)}</span><span class="meta">${esc(p.short)} · ${esc(p.date)}</span></span></span></button>`;}
+    function home(){let posts=mine.concat(seed).filter(p=>filter==="全部"||p.kind===filter);return nav("拾见校园")+`<div class="body"><div class="hero"><span class="mini-label">THE CLUE BOARD · 2026</span><h2>好线索，会相遇。</h2><div class="muted">把寻物与招领，贴在同一面线索墙。</div><span class="hero-number" aria-hidden="true">拾</span></div><button class="searchlink" data-screen="search"><span class="search-glyph" aria-hidden="true">⌕</span>按物品名称寻找线索</button><div class="seg">${["全部","寻物","招领"].map(x=>`<button data-filter="${x}" class="${filter===x?"active":""}" aria-pressed="${filter===x}">${x}</button>`).join("")}</div><div class="section-head"><h3>线索墙上的新消息</h3><small>${String(posts.length).padStart(2,"0")} ITEMS</small></div><div class="list">${posts.map(card).join("")}</div><div class="actions"><button class="cta" data-screen="publish">＋ 贴出一条新线索</button></div></div>`+bottom("home");}
+    function search(){return nav("搜索物品","home")+`<div class="body"><span class="mini-label">FIND A CLUE / 01</span><h2>从一个关键词开始。</h2><p class="muted">物品名称越具体，找到的线索越接近。</p><form id="search-form"><label class="sr-only" for="keyword">搜索物品名称</label><div class="searchrow"><span class="search-glyph" aria-hidden="true">⌕</span><input id="keyword" name="keyword" placeholder="例如：校园卡、钥匙" value="${esc(keyword)}" autocomplete="off"></div><div class="actions"><button class="cta" type="submit">查找线索</button></div></form><div class="section-head"><h3>试试这些物品</h3><small>QUICK SEARCH</small></div><div class="seg">${["校园卡","钥匙","雨伞"].map(x=>`<button data-keyword="${x}">${x}</button>`).join("")}</div><p class="muted" style="margin-top:27px">打开结果后，再核对地点、时间与物品特征。</p></div>`+bottom("search");}
+    function results(){let q=keyword.trim().toLowerCase();let posts=mine.concat(seed).filter(p=>!q||[p.title,p.category,p.place,p.description].join(" ").toLowerCase().includes(q));return nav("搜索结果","search")+`<div class="body"><span class="mini-label">SEARCH RESULT / 02</span><button class="searchlink" data-screen="search" style="margin-top:13px"><span class="search-glyph" aria-hidden="true">⌕</span>${esc(keyword||"重新输入关键词")}</button><div class="result-heading"><span class="result-count">${String(posts.length).padStart(2,"0")}</span><span>条与“${esc(keyword||"全部物品")}”相关的线索</span></div><div class="list">${posts.length?posts.map(card).join(""):'<div class="empty">暂时没有匹配的线索。<br>试试更短的关键词，或贴出寻物信息。</div>'}</div><div class="actions"><button class="secondary" data-screen="publish">发布寻物信息</button></div></div>`+bottom("search");}
+    function detail(){let p=getPost(),done=p.status.startsWith("已");return nav("线索详情",previousList)+`<div class="body"><span class="mini-label">CLUE FILE / ${esc(p.kind)}</span><h2 style="margin-top:12px">${esc(p.title)}</h2><span class="pill ${done?"closed":p.kind==="寻物"?"lost":""}">${esc(p.status)}</span><div class="photo"><div class="photo-token" aria-hidden="true">${iconFor(p)}</div><span>物品照片示意 · ${esc(p.category)}</span></div><div class="facts"><div class="fact"><b>类别</b><span>${esc(p.category)}</span></div><div class="fact"><b>地点</b><span>${esc(p.place)}</span></div><div class="fact"><b>时间</b><span>${esc(p.date)}</span></div></div><div class="section-head"><h3>这条线索还说了什么</h3><small>DETAIL</small></div><p class="muted">${esc(p.description)}</p><div class="actions">${done?'<div class="note">这条线索已经完成，无需再联系发布者。</div>':'<button class="cta" data-screen="contact">查看联系或领取方式</button>'}</div></div>`;}
+    function contact(){let p=getPost(),lost=p.kind==="寻物";if(p.status.startsWith("已"))return nav("交接方式","detail")+'<div class="body"><span class="mini-label">CLUE CLOSED</span><h2>这条线索已完成</h2><p class="muted">物品已找回或归还，无需再联系发布者。</p><div class="actions"><button class="secondary" data-screen="detail">返回详情</button></div></div>';return nav("交接方式","detail")+`<div class="body"><span class="mini-label">A SAFE HANDOVER / 03</span><h2>${lost?'提供线索，协助归还':'核对物品后再领取'}</h2><p class="muted">${lost?'如果拾到相似物品，请先核对特征，再按下方方式提供线索。':'请先核对时间、地点和特征，再按下方方式领取。'}</p><div class="step-list"><div class="step"><b>01</b><span>查看物品信息，确认是否与自己寻找或拾到的物品一致。</span></div><div class="step"><b>02</b><span>按照发布者留下的方式联系或到指定地点交接。</span></div></div><div class="facts"><div class="fact"><b>交接方式</b><span>${esc(p.contact)}</span></div><div class="fact"><b>相关物品</b><span>${esc(p.title)}</span></div></div><div class="note" style="margin-top:21px">证件信息不公开完整卡面，交接时再核实，避免冒领。</div><div class="actions"><button class="secondary" data-screen="detail">返回线索详情</button></div></div>`;}
+    function publish(){return nav("发布信息","home")+`<div class="body"><span class="mini-label">POST A CLUE / 04</span><h2>贴一张新的线索卡。</h2><p class="muted">把物品、地点和时间写清楚，方便对方判断。</p><form id="publish-form"><label class="field">线索类型<select name="kind"><option>寻物</option><option>招领</option></select></label><label class="field">物品名称 *<input name="title" placeholder="例如：校园卡" required maxlength="40"></label><label class="field">物品类别<select name="category"><option>证件卡片</option><option>钥匙</option><option>电子产品</option><option>其他</option></select></label><label class="field">丢失或拾取时间 *<input name="date" type="datetime-local" required></label><label class="field">地点 *<input name="place" placeholder="例如：图书馆一楼" required maxlength="50"></label><label class="field">补充描述<textarea name="description" placeholder="颜色、特征等；不要填写完整证件号" maxlength="200"></textarea></label><label class="field">联系或领取方式 *<input name="contact" placeholder="例如：交至服务台" required maxlength="60"></label><p class="help">带 * 的项目必填。本页只演示流程；刷新后记录会清除，也不会提交到服务器。</p><div id="form-error" class="error" role="alert"></div><div class="actions"><button class="cta" type="submit">确认贴出线索</button></div></form></div>`+bottom("publish");}
+    function success(){return nav("发布成功")+'<div class="body center"><div class="symbol">✓</div><span class="mini-label">CLUE POSTED</span><h2 style="margin-top:12px">发布成功</h2><p class="muted">新线索已进入本次演示列表。物品找到或归还后，记得更新状态。</p><div class="actions" style="margin-top:58px"><button class="cta" data-screen="mine">查看我的线索</button><button class="secondary" data-screen="home">返回线索墙</button></div></div>';}
+    function myPage(){return nav("我的发布","home")+`<div class="body"><span class="mini-label">MY CLUES / 05</span><h2>我贴出的线索。</h2><p class="muted">物品已找回或归还时，把这条信息标记为完成。</p><div class="list" style="margin-top:23px">${mine.length?mine.map(p=>card(p)+`<button class="secondary" style="margin-top:-5px" data-close="${p.id}" ${p.status.startsWith("已")?'disabled aria-disabled="true"':''}>${p.status.startsWith("已")?"已完成":"标记为"+(p.kind==="招领"?"已归还":"已找回")}</button>`).join(""):'<div class="empty">这面墙上还没有你的线索。<br>先发布一条寻物或招领信息吧。</div>'}</div><div class="actions"><button class="cta" data-screen="publish">贴出新线索</button></div></div>`+bottom("mine");}
+    function closed(){return nav("状态已更新","mine")+'<div class="body center"><div class="symbol">✓</div><span class="mini-label">A CLUE COMPLETED</span><h2 style="margin-top:12px">状态已更新</h2><p class="muted">这条线索有了结局。列表会显示新的状态，减少无效联系。</p><div class="actions" style="margin-top:58px"><button class="cta" data-screen="mine">返回我的线索</button><button class="secondary" data-screen="home">返回线索墙</button></div></div>';}
+    function render(){app.innerHTML=({home,search,results,detail,contact,publish,success,mine:myPage,closed}[page]||home)();app.scrollTop=0;document.title="拾见校园｜"+({home:"首页",search:"搜索",results:"搜索结果",detail:"线索详情",contact:"交接方式",publish:"发布信息",success:"发布成功",mine:"我的发布",closed:"状态已更新"}[page]||"交互原型");}
+    function go(next){page=next;if(location.hash.slice(1)!==next)location.hash=next;render();}
+    document.addEventListener("click",ev=>{let flow=ev.target.closest("[data-flow]");if(flow){if(flow.dataset.flow==="browse"){selected=1;previousList="home";go("detail");}if(flow.dataset.flow==="search"){keyword="校园卡";go("search");}if(flow.dataset.flow==="publish"){go("publish");}return;}let f=ev.target.closest("[data-filter]");if(f){filter=f.dataset.filter;render();return;}let k=ev.target.closest("[data-keyword]");if(k){keyword=k.dataset.keyword;go("results");return;}let p=ev.target.closest("[data-post]");if(p){selected=Number(p.dataset.post);previousList=page;go("detail");return;}let c=ev.target.closest("[data-close]");if(c){let item=mine.find(x=>x.id===Number(c.dataset.close));if(item&&item.status.indexOf("已")!==0){item.status=item.kind==="招领"?"已归还":"已找回";go("closed");}return;}let link=ev.target.closest("[data-screen]");if(link){go(link.dataset.screen);}});
+    document.addEventListener("submit",ev=>{if(ev.target.id==="search-form"){ev.preventDefault();keyword=String(new FormData(ev.target).get("keyword")||"").trim();go("results");}if(ev.target.id==="publish-form"){ev.preventDefault();let d=new FormData(ev.target);let title=String(d.get("title")||"").trim(),place=String(d.get("place")||"").trim(),contact=String(d.get("contact")||"").trim();if(!title||!place||!contact||!d.get("date")){document.getElementById("form-error").textContent="请补全带 * 的项目。";return;}let kind=String(d.get("kind"));let rawDate=String(d.get("date"));let description=String(d.get("description")||"").trim()||"暂无补充描述";let item={id:Date.now(),kind,title,category:String(d.get("category")),place,date:rawDate.replace("T"," "),short:place,description,contact,status:kind==="招领"?"招领中":"寻找中"};mine.unshift(item);selected=item.id;go("success");}});
+    window.addEventListener("hashchange",()=>{let target=location.hash.slice(1);if(target!==page&&["home","search","results","detail","contact","publish","success","mine","closed"].includes(target)){page=target;render();}});
     let initial=location.hash.slice(1);if(["home","search","results","detail","contact","publish","success","mine","closed"].includes(initial))page=initial;render();
   </script>
 </body>
